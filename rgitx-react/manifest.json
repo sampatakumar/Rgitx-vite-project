@@ -11,8 +11,9 @@
   "version": "1.0.0",
   "orientation": "portrait",
   "scope": "/",
-  "sites": "https://sampatakumar.github.io, https://rgitx.vercel.app, https://educonnect25.vercel.app, https://sampatakumar.github.io/resume/index.html",
-
+  "keywords": "RGITX,rgitx,rajiv gandhi institute of technology,bangalore,lab programs,rgitx.in,rgit,rgit bangalore,rgit lab programs,rgitx lab programs,sampatakumar,sampatakumar rgitx,sampatakumar rgit,sampatakumar bangalore",
+  "other-sites": "https://sampatakumar.github.io, https://rgitx.vercel.app, https://educonnect25.vercel.app, https://sampatakumar.github.io/resume/index.html",
+  "recommended-sites": "https://sampatakumar.github.io, https://rgitx.vercel.app, https://educonnect25.vercel.app, https://sampatakumar.github.io/resume/index.html",
   "icons": [
     {
       "src": "icon.png",
