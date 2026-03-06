@@ -86,6 +86,35 @@ const Admin = () => {
         }
     };
 
+    const handleDeleteLab = async (id) => {
+        if (!window.confirm('Are you sure you want to delete this Lab?')) return;
+
+        try {
+            const response = await fetch(`${API_URL}/api/labs/${id}`, {
+                method: 'DELETE'
+            });
+            if (response.ok) {
+                const deletedLab = availableLabs.find(l => l._id === id);
+                setAvailableLabs(prev => prev.filter(l => l._id !== id));
+
+                // If the deleted lab was currently selected, reset selections
+                if (deletedLab && manageLabType === deletedLab.type) {
+                    const remaining = availableLabs.filter(l => l._id !== id);
+                    setManageLabType(remaining.length > 0 ? remaining[0].type : '');
+                }
+                if (deletedLab && labType === deletedLab.type) {
+                    const remaining = availableLabs.filter(l => l._id !== id);
+                    setLabType(remaining.length > 0 ? remaining[0].type : '');
+                }
+            } else {
+                alert('Failed to delete lab.');
+            }
+        } catch (err) {
+            console.error('Delete lab error:', err);
+            alert('Error deleting lab.');
+        }
+    };
+
     const handleLogin = async (e) => {
         e.preventDefault();
         try {
@@ -264,7 +293,7 @@ ${progCode}
                         className={`tab-btn ${activeTab === 'lab' ? 'active' : ''}`}
                         onClick={() => { setActiveTab('lab'); setGeneratedResult(''); }}
                     >
-                        Create Dynamic Lab
+                        Manage Labs
                     </button>
                     <button
                         className="tab-btn"
@@ -347,22 +376,46 @@ ${progCode}
 
                 {activeTab === 'lab' && (
                     <div className="upload-form">
-                        <div className="form-group">
-                            <label>Lab Name</label>
-                            <input type="text" value={labName} onChange={(e) => setLabName(e.target.value)} placeholder="Computer Graphics Lab" />
+                        <div style={{ marginBottom: '30px' }}>
+                            <div className="form-group">
+                                <label>Lab Name</label>
+                                <input type="text" value={labName} onChange={(e) => setLabName(e.target.value)} placeholder="Computer Graphics Lab" />
+                            </div>
+                            <div className="form-group">
+                                <label>URL Slug (Type)</label>
+                                <input type="text" value={labSlug} onChange={(e) => setLabSlug(e.target.value)} placeholder="cg" />
+                            </div>
+                            <div className="form-group">
+                                <label>Date (Optional)</label>
+                                <input type="text" value={labDate} onChange={(e) => setLabDate(e.target.value)} placeholder="March 07, 2025" />
+                            </div>
+                            <button className="generate-btn" onClick={createLabInDB} disabled={isSaving}>
+                                {isSaving ? 'Creating...' : 'Create Lab Category'}
+                            </button>
+                            {saveStatus && <div style={{ textAlign: 'center', marginTop: '10px', fontWeight: 'bold', color: saveStatus.includes('successfully') ? '#10b981' : '#ef4444' }}>{saveStatus}</div>}
                         </div>
-                        <div className="form-group">
-                            <label>URL Slug (Type)</label>
-                            <input type="text" value={labSlug} onChange={(e) => setLabSlug(e.target.value)} placeholder="cg" />
+
+                        <div className="manage-list" style={{ borderTop: '1px solid #333', paddingTop: '20px' }}>
+                            <h3 style={{ color: '#fff', marginBottom: '15px' }}>Existing Labs</h3>
+                            {availableLabs.length > 0 ? (
+                                availableLabs.map(lab => (
+                                    <div key={lab._id} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '15px', background: 'rgba(255,255,255,0.05)', borderRadius: '8px', marginBottom: '10px', border: '1px solid #222' }}>
+                                        <div>
+                                            <span style={{ color: '#fff', fontWeight: 'bold' }}>{lab.name}</span>
+                                            <span style={{ color: '#888', marginLeft: '10px', fontSize: '0.85rem' }}>/{lab.type}</span>
+                                        </div>
+                                        <button
+                                            onClick={() => handleDeleteLab(lab._id)}
+                                            style={{ background: 'rgba(239, 68, 68, 0.15)', color: '#ef4444', border: '1px solid #ef4444', padding: '5px 12px', borderRadius: '6px', cursor: 'pointer', fontSize: '0.85rem' }}
+                                        >
+                                            Delete
+                                        </button>
+                                    </div>
+                                ))
+                            ) : (
+                                <div style={{ textAlign: 'center', color: '#666' }}>No labs available.</div>
+                            )}
                         </div>
-                        <div className="form-group">
-                            <label>Date (Optional)</label>
-                            <input type="text" value={labDate} onChange={(e) => setLabDate(e.target.value)} placeholder="March 07, 2025" />
-                        </div>
-                        <button className="generate-btn" onClick={createLabInDB} disabled={isSaving}>
-                            {isSaving ? 'Creating...' : 'Create Lab Category'}
-                        </button>
-                        {saveStatus && <div style={{ textAlign: 'center', marginTop: '10px', fontWeight: 'bold', color: saveStatus.includes('successfully') ? '#10b981' : '#ef4444' }}>{saveStatus}</div>}
                     </div>
                 )}
 
