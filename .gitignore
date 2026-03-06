@@ -1,0 +1,9 @@
+node_modules
+
+backend/node_modules
+backend/.env
+backend/package-lock.json
+
+rgitx-react/node_modules
+rgitx-react/.env
+rgitx-react/package-lock.json
