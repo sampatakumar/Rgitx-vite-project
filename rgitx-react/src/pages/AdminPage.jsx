@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Admin = () => {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -129,12 +131,15 @@ const Admin = () => {
                 setLoginError('');
             } else {
                 setLoginError(data.message || 'Invalid email or password.');
+                toast.error('Bakchodi mat kar padayi start kar');
             }
         } catch (err) {
+            toast.error('Bakchodi mat kar padayi start kar');
             console.error('Login error:', err);
             setLoginError('Server error. check console.');
         }
     };
+
 
     const saveToDatabase = async () => {
         if (!progNum || !progTitle || !progCode || !labType) {
@@ -249,7 +254,7 @@ ${progCode}
                                 type="email"
                                 value={email}
                                 onChange={(e) => setEmail(e.target.value)}
-                                placeholder="admin@example.com"
+                                placeholder="Don't even look at it"
                                 required
                             />
                         </div>
@@ -259,7 +264,7 @@ ${progCode}
                                 type="password"
                                 value={password}
                                 onChange={(e) => setPassword(e.target.value)}
-                                placeholder="••••••••"
+                                placeholder="Don't even try it"
                                 required
                             />
                         </div>
@@ -273,6 +278,30 @@ ${progCode}
 
     return (
         <main className="page-content">
+            <ToastContainer
+  position="top-center"
+  autoClose={4000}
+  hideProgressBar={false}
+  newestOnTop
+  closeOnClick
+  pauseOnFocusLoss
+  draggable
+  pauseOnHover
+  theme="dark"
+  toastStyle={{
+    background: "rgba(255, 255, 255, 0.08)",
+    backdropFilter: "blur(14px)",
+    WebkitBackdropFilter: "blur(14px)",
+    border: "1px solid rgba(255,255,255,0.15)",
+    borderRadius: "14px",
+    color: "#fff",
+    padding: "14px",
+    boxShadow: "0 10px 35px rgba(0,0,0,0.35)"
+  }}
+  progressStyle={{
+    background: "linear-gradient(90deg,#00f5ff,#7c3aed)"
+  }}
+/>
             <div className="upload-container">
                 <div className="header">Lab Management Console</div>
 
