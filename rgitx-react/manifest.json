@@ -1,0 +1,23 @@
+{
+  "name": "RGITX",
+  "short_name": "RGITX",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#000000",
+  "theme_color": "#000000",
+  "lang": "en",
+  "description": "RGITX - Web Lab, Machine Learning",
+  "author": "sampatakumar S V,sampatakumar",
+  "version": "1.0.0",
+  "orientation": "portrait",
+  "scope": "/",
+  "sites": "https://sampatakumar.github.io, https://rgitx.vercel.app, https://educonnect25.vercel.app, https://sampatakumar.github.io/resume/index.html",
+
+  "icons": [
+    {
+      "src": "icon.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    }
+  ]
+}
