@@ -3,18 +3,10 @@ import { NavLink, useNavigate } from 'react-router-dom';
 
 const Navbar = () => {
     const [isOpen, setIsOpen] = useState(false);
-    const [labs, setLabs] = useState([]);
     const navigate = useNavigate();
 
     // Dynamic API URL
     const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
-
-    useEffect(() => {
-        fetch(`${API_URL}/api/labs`)
-            .then(res => res.json())
-            .then(data => setLabs(data))
-            .catch(err => console.error('Error fetching labs:', err));
-    }, []);
 
     const toggleMenu = () => setIsOpen(!isOpen);
     const handleSearchKeyDown = (e) => {
@@ -32,15 +24,6 @@ const Navbar = () => {
             <nav className={`nav-links ${isOpen ? 'active' : ''}`} id="navLinks">
                 <NavLink to="/" onClick={() => setIsOpen(false)}>Home</NavLink>
 
-                {labs.map(lab => (
-                    <NavLink
-                        key={lab._id}
-                        to={`/lab/${lab.type}`}
-                        onClick={() => setIsOpen(false)}
-                    >
-                        {lab.name}
-                    </NavLink>
-                ))}
                 <div className="search-container" style={{ display: 'inline-block', marginLeft: '20px' }}>
                     <input
                         type="text"
