@@ -125,7 +125,7 @@ app.post("/api/admin/login", (req, res) => {
     if (email === adminEmail && password === adminPass) {
         res.json({ success: true, message: "Login successful" });
     } else {
-        res.status(401).json({ success: false, message: "Invalid credentials" });
+        res.status(401).json({ success: false, message: "Bhai kya kar rha hai? ✗" });
     }
 });
 
