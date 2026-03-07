@@ -134,14 +134,16 @@ const Admin = () => {
             if (data.success) {
                 setIsLoggedIn(true);
                 setLoginError('');
+                toast.success('Login successful. ✓');
             } else {
                 setLoginError(data.message || 'Invalid email or password.');
-                toast.error('Bakchodi mat kar padayi start kar');
+                toast.error('Bhai kya kar rha hai');
             }
         } catch (err) {
-            toast.error('Bakchodi mat kar padayi start kar');
+            toast.error('Bhai kya kar rha hai');
             // console.error('Login error:', err);
             setLoginError('Server error. check console.');
+            
         }
     };
 
