@@ -52,7 +52,8 @@ const Admin = () => {
                 setManageLabType(data[0].type);
             }
         } catch (err) {
-            console.error('Error fetching available labs:', err);
+            // console.error('Error fetching available labs:', err);
+            toast.error('Error fetching available labs. ✗', err);
         }
     };
 
@@ -63,7 +64,8 @@ const Admin = () => {
             const data = await response.json();
             setManagePrograms(data);
         } catch (err) {
-            console.error('Fetch management error:', err);
+            // console.error('Fetch management error:', err);
+            toast.error('Fetch management error. ✗', err);
         } finally {
             setManageLoading(false);
         }
@@ -79,11 +81,13 @@ const Admin = () => {
             if (response.ok) {
                 setManagePrograms(prev => prev.filter(p => p._id !== id));
             } else {
-                alert('Failed to delete program.');
+                // alert('Failed to delete program.');
+                toast.error('Failed to delete program. ✗', err);
             }
         } catch (err) {
-            console.error('Delete error:', err);
-            alert('Error deleting program.');
+            // console.error('Delete error:', err);
+            toast.error('Delete error. ✗', err);
+            // alert('Error deleting program.');
         }
     };
 
@@ -109,9 +113,11 @@ const Admin = () => {
                 }
             } else {
                 alert('Failed to delete lab.');
+                toast.error('Failed to delete lab. ✗', err);
             }
         } catch (err) {
-            console.error('Delete lab error:', err);
+            // console.error('Delete lab error:', err);
+            toast.error('Delete lab error. ✗', err);
             alert('Error deleting lab.');
         }
     };
@@ -134,7 +140,7 @@ const Admin = () => {
             }
         } catch (err) {
             toast.error('Bakchodi mat kar padayi start kar');
-            console.error('Login error:', err);
+            // console.error('Login error:', err);
             setLoginError('Server error. check console.');
         }
     };
@@ -172,7 +178,7 @@ const Admin = () => {
                 setSaveStatus('Failed to save to database. ✗');
             }
         } catch (err) {
-            console.error('Save error:', err);
+            // console.error('Save error:', err);
             setSaveStatus('Server error. check console. ✗');
         } finally {
             setIsSaving(false);
@@ -210,7 +216,8 @@ const Admin = () => {
                 setSaveStatus('Failed to create lab. ✗');
             }
         } catch (err) {
-            console.error('Lab creation error:', err);
+            // console.error('Lab creation error:', err);
+            toast.error('Lab creation error. ✗', err);
             setSaveStatus('Server error. ✗');
         } finally {
             setIsSaving(false);
