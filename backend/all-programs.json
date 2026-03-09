@@ -1,0 +1,20 @@
+[
+  {
+    "_id": "69aaff656a4af60e3c8a651c",
+    "number": "1",
+    "title": "test",
+    "code": "gen ai testing",
+    "labType": "genai",
+    "createdAt": "2026-03-06T16:23:01.548Z",
+    "__v": 0
+  },
+  {
+    "_id": "69ae76b43c8f3bf385b549d3",
+    "number": "1",
+    "title": "California Housing dataset",
+    "code": "import pandas as pd \nimport matplotlib.pyplot as plt \nimport seaborn as sns \nfrom sklearn.datasets import fetch_california_housing \n\n# Load the California Housing dataset \ndef load_data(): \n    data = fetch_california_housing(as_frame=True) \n    df = data['data'] \n    df['Target'] = data['target']  # Add the target (house value) to the DataFrame\n    return df \n\n# Function to plot histograms for numerical features \ndef plot_histograms(df): \n    numerical_features = df.select_dtypes(include='number').columns \n    df[numerical_features].hist(bins=20, figsize=(15, 10), color='skyblue', edgecolor='black') \n    plt.suptitle('Histograms of Numerical Features', fontsize=16) \n    plt.tight_layout() \n    plt.show() \n# Function to generate box plots and identify outliers \ndef plot_boxplots(df): \n    numerical_features = df.select_dtypes(include='number').columns \n    for feature in numerical_features: \n        plt.figure(figsize=(8, 6)) \n        sns.boxplot(x=df[feature], color='lightblue') \n        plt.title(f'Box Plot of {feature}', fontsize=14) \n        plt.xlabel(feature, fontsize=12) \n        plt.tight_layout() \n        plt.show()\n        # Identify outliers using the IQR method for this feature\n        Q1 = df[feature].quantile(0.25)\n        Q3 = df[feature].quantile(0.75) # Corrected from Q2 to Q3\n        IQR = Q3 - Q1\n        lower_bound = Q1 - 1.5 * IQR\n        upper_bound = Q3 + 1.5 * IQR # Corrected from Q2 to Q3\n        outliers = df[(df[feature] < lower_bound) | (df[feature] > upper_bound)]\n        print(f\"{feature}: {len(outliers)} outliers found.\") \n# Main function to run the analysis \ndef main(): \n    df = load_data() \n    print(\"Dataset loaded successfully!\")\n    print(\"\\nGenerating histograms for numerical features...\") \n    plot_histograms(df) \n    print(\"\\nGenerating box plots and identifying outliers...\") \n    plot_boxplots(df) \nif __name__ == \"__main__\": \n    main()",
+    "labType": "weblab",
+    "createdAt": "2026-03-09T07:28:52.937Z",
+    "__v": 0
+  }
+]

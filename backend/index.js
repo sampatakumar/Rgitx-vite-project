@@ -109,8 +109,12 @@ app.post("/api/labs", async (req, res) => {
 
 app.delete("/api/labs/:id", async (req, res) => {
     try {
-        await Lab.findByIdAndDelete(req.params.id);
-        res.json({ message: "Lab deleted" });
+        const deletedLab = await Lab.findByIdAndDelete(req.params.id);
+        if (deletedLab) {
+            // Cascade delete all programs associated with this lab type
+            await Program.deleteMany({ labType: deletedLab.type });
+        }
+        res.json({ message: "Lab and associated programs deleted" });
     } catch (err) {
         res.status(500).json({ error: err.message });
     }

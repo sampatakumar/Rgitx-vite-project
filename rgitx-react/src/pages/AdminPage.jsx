@@ -15,7 +15,7 @@ const Admin = () => {
     const [progNum, setProgNum] = useState('');
     const [progTitle, setProgTitle] = useState('');
     const [progCode, setProgCode] = useState('');
-    const [labType, setLabType] = useState('weblab');
+    const [labType, setLabType] = useState('');
     const [labName, setLabName] = useState('');
     const [labDate, setLabDate] = useState('');
     const [generatedResult, setGeneratedResult] = useState('');
@@ -26,7 +26,7 @@ const Admin = () => {
     // Management States
     const [managePrograms, setManagePrograms] = useState([]);
     const [manageLoading, setManageLoading] = useState(false);
-    const [manageLabType, setManageLabType] = useState('weblab');
+    const [manageLabType, setManageLabType] = useState('');
 
     // Dynamic Labs State
     const [availableLabs, setAvailableLabs] = useState([]);
