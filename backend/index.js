@@ -12,8 +12,18 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+const allowedOrigins = [
+  "http://localhost:5173",   
+  "https://rgitx.vercel.app" 
+];
+
+app.use(cors({
+  origin: allowedOrigins,
+  credentials: true
+}));
+
 app.get("/", (req, res) => {
-    res.send("RGITX Backend API is running...");
+    res.send("RGITX Backend API is running... 🚀");
 });
 
 // API Routes
